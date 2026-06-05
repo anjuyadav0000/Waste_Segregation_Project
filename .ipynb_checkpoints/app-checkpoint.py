@@ -11,6 +11,9 @@ from streamlit_webrtc import webrtc_streamer
 import plotly.express as px
 import plotly.graph_objects as go
 
+
+
+
 # =================================
 # PAGE CONFIG
 # =================================
@@ -1560,90 +1563,231 @@ elif page == "📊 Analytics Dashboard":
 ♻ Glass can be recycled infinitely without quality loss.
 """)
 
-
-# =================================
-# ECO CHATBOT
-# =================================
-
 elif page == "💬 Eco Chatbot":
 
     st.markdown("""
-    <div class="hero">
+    <style>
+    .chat-hero{
+        background: linear-gradient(135deg,#4F46E5,#06B6D4);
+        padding:30px;
+        border-radius:25px;
+        text-align:center;
+        color:white;
+        box-shadow:0px 0px 25px rgba(0,255,255,0.4);
+        margin-bottom:25px;
+    }
 
-    <h1>💬 Eco Chatbot</h1>
+    .response-box{
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
+        padding:20px;
+        border-radius:20px;
+        border:1px solid rgba(255,255,255,0.15);
+        margin-top:20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    <h3>
-    Ask Questions About Recycling
-    </h3>
-
+    st.markdown("""
+    <div class="chat-hero">
+        <h1>💬 Eco Chatbot</h1>
+        <h3>Ask Questions About Recycling & Sustainability</h3>
     </div>
     """, unsafe_allow_html=True)
 
-    question = st.text_input(
-        "Ask a Question"
+    st.markdown("### 🚀 Quick Questions")
+
+    col1,col2,col3,col4 = st.columns(4)
+
+    question = ""
+
+    with col1:
+        if st.button("♻ Plastic"):
+            question = "plastic"
+
+    with col2:
+        if st.button("🍎 Compost"):
+            question = "compost"
+
+    with col3:
+        if st.button("🗑 Bin Guide"):
+            question = "bin guide"
+
+    with col4:
+        if st.button("🌍 Sustainability"):
+            question = "sustainability"
+
+    user_question = st.text_input(
+        "Ask a Question",
+        placeholder="Example: How do I recycle plastic bottles?"
     )
+
+    if user_question:
+        question = user_question.lower()
 
     if question:
 
-        q = question.lower()
+        with st.spinner("🤖 EcoVision AI is thinking..."):
 
-        if "plastic" in q:
+            q = question.lower()
 
-            st.success("""
-♻ Plastic should be cleaned
-before recycling.
+            if "plastic" in q:
 
-🟡 Yellow Bin
+                answer = """
+### ♻ Explanation
+Plastic waste includes bottles, containers, and packaging materials.
 
-🌍 Takes 450+ years to decompose.
-""")
+### 🗑 Disposal Method
+Place clean plastic items in the **Yellow Bin**.
 
-        elif "paper" in q:
+### 🌍 Environmental Impact
+Plastic may take 450+ years to decompose and can pollute oceans and land.
 
-            st.success("""
-📄 Paper goes in Blue Bin.
+### 💡 Eco Tip
+Avoid single-use plastics and reuse bottles whenever possible.
+"""
 
-🌳 Recycling paper saves trees.
-""")
+            elif "paper" in q:
 
-        elif "glass" in q:
+                answer = """
+### ♻ Explanation
+Paper waste includes newspapers, books, cartons, and office paper.
 
-            st.success("""
-🍾 Glass goes in Green Bin.
+### 🗑 Disposal Method
+Place paper waste in the **Blue Bin**.
 
-♻ Infinitely recyclable.
-""")
+### 🌍 Environmental Impact
+Recycling paper helps save trees and water.
 
-        elif "metal" in q:
+### 💡 Eco Tip
+Keep paper dry and clean before recycling.
+"""
 
-            st.success("""
-🥫 Metal goes in Grey Bin.
+            elif "glass" in q:
 
-⚡ Saves energy when recycled.
-""")
+                answer = """
+### ♻ Explanation
+Glass bottles and jars can be recycled repeatedly.
 
-        elif "recycle" in q:
+### 🗑 Disposal Method
+Place glass waste in the **Green Bin**.
 
-            st.success("""
-♻ Recycling reduces pollution
-and conserves natural resources.
-""")
+### 🌍 Environmental Impact
+Glass recycling reduces landfill waste and saves resources.
 
-        else:
+### 💡 Eco Tip
+Reuse glass containers whenever possible.
+"""
 
-            st.info("""
-Try asking:
+            elif "metal" in q:
 
-• How to recycle plastic?
+                answer = """
+### ♻ Explanation
+Metal waste includes cans, foil, and scrap metal.
 
-• What bin for paper?
+### 🗑 Disposal Method
+Place metal waste in the **Grey Bin**.
 
-• Tell me about glass recycling.
+### 🌍 Environmental Impact
+Metal recycling saves up to 95% energy.
 
-• Why is recycling important?
-""")
+### 💡 Eco Tip
+Crush cans before recycling to save space.
+"""
 
+            elif "compost" in q:
 
+                answer = """
+### ♻ Explanation
+Composting converts food scraps into nutrient-rich soil.
+
+### 🗑 Disposal Method
+Use a compost bin for vegetable peels, fruit scraps, and leaves.
+
+### 🌍 Environmental Impact
+Composting reduces landfill waste and methane emissions.
+
+### 💡 Eco Tip
+Avoid adding plastic, meat, or oily food to compost.
+"""
+
+            elif "bin" in q:
+
+                answer = """
+### 🗑 Waste Bin Guide
+
+🟡 Yellow Bin → Plastic
+
+🔵 Blue Bin → Paper & Cardboard
+
+🟢 Green Bin → Glass
+
+⚪ Grey Bin → Metal
+
+⚫ Black Bin → Mixed Waste
+
+### 💡 Eco Tip
+Always segregate waste before disposal.
+"""
+
+            elif "sustainability" in q:
+
+                answer = """
+### 🌍 Sustainable Living Tips
+
+♻ Recycle regularly
+
+💧 Save water
+
+⚡ Reduce electricity consumption
+
+🛍 Use reusable bags
+
+🚲 Prefer public transport
+
+### 💡 Eco Tip
+Small daily actions create a big environmental impact.
+"""
+
+            else:
+
+                answer = """
+### 🤖 EcoVision AI
+
+Try asking about:
+
+♻ Plastic Recycling
+
+🍎 Composting
+
+🗑 Waste Bin Guide
+
+🌍 Sustainability
+
+📄 Paper Waste
+
+🍾 Glass Recycling
+
+🔩 Metal Recycling
+"""
+
+            st.markdown('<div class="response-box">', unsafe_allow_html=True)
+
+            st.markdown("## 🤖 AI Response")
+            st.markdown(answer)
+
+            st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    st.markdown("""
+    <div style="text-align:center;">
+        <h2>♻ EcoVision AI</h2>
+        <p>Smart Waste Segregation & Recycling Assistant</p>
+        <p>Developed by Anju Yadav & Pratistha Sain</p>
+        <p>🌍 Building a Sustainable Future with AI</p>
+    </div>
+    """, unsafe_allow_html=True)
 # =================================
 # DISPOSAL CENTERS
 # =================================

@@ -109,5 +109,5 @@ import pickle
 with open("model/waste_model.pkl", "wb") as f:
     pickle.dump(model, f)
 
-print("✅ Model Saved Successfully!")
+print(" Model Saved Successfully!")
 ```

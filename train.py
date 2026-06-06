@@ -104,7 +104,10 @@ history = model.fit(
 # -----------------------------
 # Save Model
 # -----------------------------
-model.save("model/waste_model.h5")
+import pickle
+
+with open("model/waste_model.pkl", "wb") as f:
+    pickle.dump(model, f)
 
 print("✅ Model Saved Successfully!")
 ```
